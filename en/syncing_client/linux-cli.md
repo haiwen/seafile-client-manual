@@ -225,3 +225,19 @@ seaf-cli download
 seaf-cli sync
 seaf-cli list-remote
 ```
+
+### Get argument from configuration file
+Since seafile client version 9.0.6, seaf-cli supports reading argument from the configuration file for create/list-remote/download command. You can modify the `seafile.ini` and add the following lines:
+```
+[account]
+# your seafile server address
+server = https://cloud.seafile.com
+# your user account
+user = test@seafile.com
+# your API token
+token = web-api-auth-token-value-from-your-profile
+```
+Then you can use commands without giving server, user and token on the command-line:
+```
+seaf-cli list-remote -C seafile.ini
+```
