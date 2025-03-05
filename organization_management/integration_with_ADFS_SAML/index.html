@@ -1,0 +1,1579 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="seafile">
+      
+      
+        <link rel="canonical" href="https://haiwen.github.io/seafile-user-manual/organization_management/integration_with_ADFS_SAML/">
+      
+      
+        <link rel="prev" href="../daily_management/">
+      
+      
+        <link rel="next" href="../../faq/">
+      
+      
+      <link rel="icon" href="../../media/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+    
+    
+      
+        <title>Integration with ADFS/SAML - Seafile User Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#integration-with-adfssaml-single-sign-on" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Seafile User Manual" class="md-header__button md-logo" aria-label="Seafile User Manual" data-md-component="logo">
+      
+  <img src="../../media/seafile-transparent-1024.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Seafile User Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Integration with ADFS/SAML
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/haiwen/seafile-user-manual/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    haiwen/seafile-user-manual
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Seafile User Manual" class="md-nav__button md-logo" aria-label="Seafile User Manual" data-md-component="logo">
+      
+  <img src="../../media/seafile-transparent-1024.png" alt="logo">
+
+    </a>
+    Seafile User Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/haiwen/seafile-user-manual/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    haiwen/seafile-user-manual
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Managing Files and Folders
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Managing Files and Folders
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_folder_managing/libraries_managing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing files with libraries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_folder_managing/restoring_deleted_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Restoring deleted files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_folder_managing/finding_older_version_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Finding old file versions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_folder_managing/library_history_and_snapshots/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Library history and snapshots
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_folder_managing/setting_library_history/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setting history retention period
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_folder_managing/deleting_a_library/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Deleting a library
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_folder_managing/viewing_files_within_web_app/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Viewing files within Web App
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_folder_managing/full-text_file_search/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Full text file search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Sharing and Collaboration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Sharing and Collaboration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sharing_collaboration/sharing_files_and_folders/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sharing files and folders
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sharing_collaboration/groups_managing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Managing groups
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sharing_collaboration/file_locking/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Locking files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sharing_collaboration/folder_permission/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Folder permission
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sharing_collaboration/departments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Departments Sharing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Wiki and Knowledge Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Wiki and Knowledge Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../wiki/manage_library_as_wiki/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage Library as Wiki
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Desktop Client and Syncing
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Desktop Client and Syncing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/install_sync/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install and sync Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/syncing_existing_folders/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Syncing existing folders
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/selective_sync_sub-folders/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Selective sync sub-folders
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/read-only_syncing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Read-only syncing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/unsync_and_resync_library/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Unsync and resync libraries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/setting_sync_interval/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setting sync interval
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/proxy_settings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proxy settings
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/file_conflicts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File conflicts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/excluding_files/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Excluding files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/install_linux_client/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Install On Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syncing_client/linux-cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Seafile Client for a Cli server
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Drive Client
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Drive Client
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drive_client/drive_client_for_win10/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Drive Client for Windows 10 or later
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drive_client/drive_client_for_macos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Drive Client for macOS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drive_client/drive_client_for_linux/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Drive Client for Linux
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Security and Encryption
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Security and Encryption
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security_and_encryption/use_encrypted_libraries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to use encrypted libraries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Organization Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Organization Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../daily_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Daily Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Integration with ADFS/SAML
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Integration with ADFS/SAML
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-microsoft-azure-saml-single-sign-on-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Microsoft Azure SAML single sign-on app
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-on-premise-adfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with on-premise ADFS
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-microsoft-azure-saml-single-sign-on-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with Microsoft Azure SAML single sign-on app
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-on-premise-adfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with on-premise ADFS
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="integration-with-adfssaml-single-sign-on">Integration with ADFS/SAML single sign-on<a class="headerlink" href="#integration-with-adfssaml-single-sign-on" title="Permanent link">&para;</a></h1>
+<p><strong>NOTE</strong>: The following operations can only be performed by organization administrators.</p>
+<p>The detailed steps depends on which ADFS service you use. We provide integration steps for Azure SAML SSO and on-premise ADFS.</p>
+<h2 id="integration-with-microsoft-azure-saml-single-sign-on-app">Integration with Microsoft Azure SAML single sign-on app<a class="headerlink" href="#integration-with-microsoft-azure-saml-single-sign-on-app" title="Permanent link">&para;</a></h2>
+<p>If you use Microsoft Azure SAML app to achieve single sign-on, please follow the steps below:</p>
+<p>First of all, please add SAML application and assign users, refer to: <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal">add an Azure AD SAML application</a>, <a href="https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal-assign-users">create and assign users</a></p>
+<p>And then enter the team admin interface and find the SAML config panel.  There are some values prepared for you to use to configure your identity Provider. The format of URL are including:</p>
+<ul>
+<li>Identifier:  https://example.com/org/custom/{org_id}/saml2/metadata/</li>
+<li>Reply URL: https://example.com/org/custom/{org_id}/saml2/acs/</li>
+<li>Sign on URL:   https://example.com</li>
+<li>Logout URL:  https://example.com/org/custom/{org_id}/ls/,</li>
+</ul>
+<p><img alt="" src="../images/auto-upload/8c1988cd-1f66-47c9-ac61-650e8245efcf.png" /></p>
+<p>Then, setup these URLs of the SAML app by copying the specific URL to the SAML Configuration of your Idp in ADFS.</p>
+<p><img alt="" src="../images/auto-upload/2a6bdc13-88f8-418b-90e3-cba0a67b12e7.png" /></p>
+<p><strong>Note</strong>: The {org_id} of the URL should be the ID of organization, and can only contain integer characters.</p>
+<p>Next, copy the metadata URL of the SAML app:</p>
+<p><img alt="" src="../images/auto-upload/6702c7c7-a205-4b18-91d2-48dd1a1b7b03.png" /></p>
+<p>and paste it into the organization admin interface, e.g:</p>
+<p><img alt="" src="../images/auto-upload/d2252310-0c30-4d88-a553-5711820a65df.png" /></p>
+<p>Next, download the base64 format SAML app's certificate and rename to idp.crt:</p>
+<p><img alt="" src="../images/auto-upload/3aa0b19d-46ac-426e-adcc-b3869b0a95a1.png" /></p>
+<p>Open the idp.crt and copy the content to the organization admin interface:</p>
+<p><img alt="" src="../images/auto-upload/5b3ff455-de3f-4585-93d2-8ecc1c7cc0ea.png" /></p>
+<p>Next, you have to verify your ownership of the domain name you use to login. Please input the name of your company's domain and click the "check" button, and a DNS TXT value will be automatically generated. Then, you need to create a new TXT record in your DNS host by copying and pasting the generated value. It may take up to 72 hours for your domain to be verified.</p>
+<p><img alt="" src="../images/auto-upload/d88fd998-1382-4b1f-901b-60bb5d874c5a.png" /></p>
+<p><strong>Next</strong>, <a href="https://learn.microsoft.com/en-us/azure/active-directory/develop/saml-claims-customization">edit saml attributes &amp; claims</a>. Keep the default attributes &amp; claims of SAML app unchanged, the <em>uid</em> attribute must be added, the <em>mail</em> and <em>name</em> attributes are optional, e.g.:</p>
+<p><img alt="" src="../images/auto-upload/abee9c69-f03d-4735-9231-92bd923b9ceb.png" /></p>
+<p><strong>Finally</strong>, open the browser and enter the Seafile login page, click <code>Single Sign-On</code>, e.g.</p>
+<p><img alt="" src="../images/auto-upload/d88fd998-1382-4b1f-901b-60bb5d874c6e.png" /></p>
+<p>in the new page, enter your email address ending with the company domain name, e.g.</p>
+<p><img alt="" src="../images/auto-upload/bfd4a31c-2533-435d-9231-7f187117a139.png" /></p>
+<p>Click the <code>Log In</code> button will jump to the SAML app login page, e.g.:</p>
+<p><img alt="" src="../images/auto-upload/21dc07ae-89a7-4281-be18-566a64bca922.png" /></p>
+<h2 id="integration-with-on-premise-adfs">Integration with on-premise ADFS<a class="headerlink" href="#integration-with-on-premise-adfs" title="Permanent link">&para;</a></h2>
+<p>If you use Microsoft ADFS to achieve single sign-on, please follow the steps below:</p>
+<p><strong>First</strong>, please make sure the following preparations are done:</p>
+<ol>
+<li>
+<p>A Windows Server with <a href="https://learn.microsoft.com/en-us/windows-server/identity/active-directory-federation-services">ADFS</a> installed. For configuring and installing ADFS you can see <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-fs/deployment/deploying-a-federation-server-farm">this article</a>.</p>
+</li>
+<li>
+<p>A valid SSL certificate for ADFS server, and here we use <code>temp.adfs.com</code> as the domain name example.</p>
+</li>
+<li>
+<p>A valid SSL certificate for Seafile server, and here we use <code>demo.seafile.com</code> as the domain name example.</p>
+</li>
+</ol>
+<p><strong>Second</strong>, And then enter the team admin interface and find the SAML config panel. There are some values prepared for you to choose to configure your identity Provider in the relying party trust. Such as identifier, Reply URL,  Logout URL and so on.</p>
+<p><img alt="" src="../images/auto-upload/8c1988cd-1f66-47c9-ac61-650e8245efcf.png" /></p>
+<p><strong>Next</strong>, setup the federation metadata URL of Microsoft ADFS in the organization admin interface. The format of the federation metadata URL is: <code>https://{your ADFS domain name}/federationmetadata/2007-06/federationmetadata.xml</code>, e.g:</p>
+<p><img alt="" src="../images/auto-upload/bde53e1b-dfef-4693-bba8-8ec8801627d6.png" /></p>
+<p><strong>Next</strong>, download the base64 format certificate and copy the content to the certificate field:</p>
+<ul>
+<li>
+<p>Navigate to the <em>ADFS</em> management window. In the left sidebar menu, navigate to <strong>Services</strong> &gt; <strong>Certificates</strong>.</p>
+</li>
+<li>
+<p>Locate the <em>Token-signing</em> certificate. Right-click the certificate and select <strong>View Certificate</strong>.</p>
+</li>
+</ul>
+<p><img alt="" src="../images/auto-upload/7a1eead2-272f-40ec-9768-effc1d4f3273.png" /></p>
+<ul>
+<li>
+<p>In the dialog box, select the <strong>Details</strong> tab.</p>
+</li>
+<li>
+<p>Click <strong>Copy to File</strong>.</p>
+</li>
+<li>
+<p>In the <em>Certificate Export Wizard</em> that opens, click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Select <strong>Base-64 encoded X.509 (.CER)</strong>, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Named it <strong>idp.crt</strong>, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Finish</strong> to complete the download.</p>
+</li>
+<li>
+<p>And then upload the idp.crt in the organization admin interface:</p>
+</li>
+</ul>
+<p><img alt="" src="../images/auto-upload/7f2b4010-5f50-4184-9d56-fe60d5a5809e.png" /></p>
+<p>Next, you have to verify your ownership of the domain name you use to login. Please input the name of your company's domain and click the "check" button, and a DNS TXT value will be automatically generated. Then, you need to create a new TXT record in your DNS host by copying and pasting the generated value. It may take up to 72 hours for your domain to be verified.</p>
+<p><img alt="" src="../images/auto-upload/d88fd998-1382-4b1f-901b-60bb5d874c5a.png" /></p>
+<p>Next, add <a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-fs/operations/create-a-relying-party-trust#to-create-a-claims-aware-relying-party-trust-using-federation-metadata">relying party trust</a>:</p>
+<ul>
+<li>
+<p>Log into the ADFS server and open the ADFS management.</p>
+</li>
+<li>
+<p>Under <strong>Actions</strong>, click <strong>Add Relying Party Trust</strong>.</p>
+</li>
+<li>
+<p>On the Welcome page, choose <strong>Claims aware</strong> and click <strong>Start</strong>.</p>
+</li>
+<li>
+<p>Select <strong>Import data about the relying party published online or on a local network</strong>, type your organization metadate url in <strong>Federation metadata address (host name or URL)</strong>, and then click <strong>Next</strong>. Your organization metadate url format is: <code>https://example.com/org/custom/{org_id}/saml2/metadata/</code>, e.g.:</p>
+</li>
+</ul>
+<p><img alt="" src="../images/auto-upload/e343f174-e31c-4aba-8f26-2b78927f625c.png" /></p>
+<ul>
+<li>
+<p>On the <strong>Specify Display Name</strong> page type a name in <strong>Display name</strong>, e.g. <code>Seafile</code>, under <strong>Notes</strong> type a description for this relying party trust, and then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Choose an access control policy</strong> window, select <strong>Permit everyone</strong>, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Review your settings, then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Close</strong>.</p>
+</li>
+</ul>
+<p><strong>Next</strong>, create claims rules:</p>
+<ul>
+<li>
+<p>Open the ADFS management, click <strong>Relying Party Trusts</strong>.</p>
+</li>
+<li>
+<p>Right-click your trust, and then click <strong>Edit Claim Issuance Policy</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Issuance Transform Rules</strong> tab click <strong>Add Rules</strong>.</p>
+</li>
+<li>
+<p>Click the <strong>Claim rule template</strong> dropdown menu and select <strong>Send LDAP Attributes as Claims</strong>, and then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Claim rule name</strong> field, type the display name for this rule, such as <strong>Seafile Claim rule</strong>. Click the <strong>Attribute store</strong> dropdown menu and select <strong>Active Directory</strong>. In the <strong>LDAP Attribute</strong> column, click the dropdown menu and select <strong>User-Principal-Name</strong>. In the <strong>Outgoing Claim Type</strong> column, click the dropdown menu and select <strong>UPN</strong>. And then click <strong>Finish</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Add Rule</strong> again.</p>
+</li>
+<li>
+<p>Click the <strong>Claim rule template</strong> dropdown menu and select <strong>Transform an Incoming Claim</strong>, and then click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Claim rule name</strong> field, type the display name for this rule, such as <strong>UPN to Name ID</strong>. Click the <strong>Incoming claim type</strong> dropdown menu and select <strong>UPN</strong>(It must match the <strong>Outgoing Claim Type</strong> in rule <code>Seafile Claim rule</code>). Click the <strong>Outgoing claim type</strong> dropdown menu and select <strong>Name ID</strong>. Click the <strong>Outgoing name ID format</strong> dropdown menu and select <strong>Email</strong>. And then click <strong>Finish</strong>.</p>
+</li>
+<li>
+<p>Click <strong>OK</strong> to add both new rules.</p>
+</li>
+</ul>
+<p><strong>Note</strong>: When creating claims rule, you can also select other LDAP Attributes, such as E-Mail-Addresses, depending on your ADFS service.</p>
+<p><strong>Next</strong>, configure the logout page, e.g.:</p>
+<p><img alt="" src="../images/auto-upload/0beb35c6-89ef-4e8c-8956-9b3c74f50aa8.png" /></p>
+<p><img alt="" src="../images/auto-upload/3a3281c6-eb25-41c3-b2bb-94d7f9d22eec.png" /></p>
+<p>The format of the logout URL is: <code>https://example.com/org/custom/{org_id}/saml2/ls/</code>, e.g.:</p>
+<p><img alt="" src="../images/auto-upload/1e6326f5-60eb-4720-8e55-c92f6c2f5f68.png" /></p>
+<p><strong>Finally</strong>, open the browser and enter the Seafile login page, click <code>Single Sign-On</code>. In the new page, enter your email address ending with the company domain name, click the <code>Log In</code> button will jump to the ADFS login page.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2020 seafile
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/haiwen/seafile-user-manua/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
